@@ -10,7 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cleanup
-        run: docker image prune --force
+        run: |
+          docker system df
+          docker system prune -a --volumes -f
+          docker system df
 
       - name: Check out the repo
         uses: actions/checkout@v4
