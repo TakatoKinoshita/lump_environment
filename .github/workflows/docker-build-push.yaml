@@ -10,10 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cleanup
-        run: |
-          docker system df
-          docker system prune -a --volumes -f
-          docker system df
+        uses: jlumbroso/free-disk-space@main
 
       - name: Check out the repo
         uses: actions/checkout@v4
