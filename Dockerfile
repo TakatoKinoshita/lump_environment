@@ -9,7 +9,7 @@ ARG WORK_DIR=/workspace
 # Install additional dependencies
 COPY requirements.txt /tmp/requirements/
 RUN conda config --add channels conda-forge \
-    && conda install --file /tmp/requirements/requirements.txt \
+    && conda install -y --file /tmp/requirements/requirements.txt \
     && rm -rf /tmp/requirements
 
 # Create the user
