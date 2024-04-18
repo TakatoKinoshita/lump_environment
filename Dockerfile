@@ -7,9 +7,10 @@ ARG USER_GID=$USER_UID
 ARG WORK_DIR=/workspace
 
 # Install additional dependencies
-COPY requirements.txt /tmp/pip-tmp/
-RUN pip3 --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requirements.txt \
-    && rm -rf /tmp/pip-tmp
+COPY requirements.txt /tmp/requirements/
+RUN conda config --add channels conda-forge \
+    && conda install --file /tmp/requirements/requirements.txt \
+    && rm -rf /tmp/requirements
 
 # Create the user
 RUN groupadd --gid $USER_GID $USERNAME \
