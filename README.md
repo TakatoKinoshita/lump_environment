@@ -1,29 +1,24 @@
-# devcontainer-template
-A devcontainer template for experimental environments
+#  lump_environment
+A Docker image and devcontainer for [LUMP](https://github.com/divyam3897/UCL).
 
 ## Contents
 - [`Dockerfile`](/Dockerfile)
-- [`.github/workflows/docker-build-push.yaml`](/.github/workflows/docker-build-push.yaml)
-- [`.github/workflows/create-git-tag.yaml`](/.github/workflows/create-git-tag.yaml)
+- [`requirements.txt`](/requirements.txt)
 - [`.devcontainer/devcontainer.json`](/.devcontainer/devcontainer.json)
 
 ## [`Dockerfile`](/Dockerfile)
-A template of Dockerfile.
-The purpose is to guarantee the experimental reproducibility.
-Hence, I recommend editing this to fix required packages.
-Please edit `FROM` instruction at least.
+`Dockerfile` defines experimental environment to guarantee the reproducibility.
+This mainly consists of following 4 steps:
 
-## [`.github/workflows/docker-build-push.yaml`](/.github/workflows/docker-build-push.yaml)
-A template of Github Actions setting.
-A docker image is built and pushed into Dockerhub by Github Actions according to this setting when you release a tagged commit.
-Please set `secrets.DOCKER_USERNAME` and `secrets.DOCKER_PASSWORD` at least.
+1. Based on the official [pytorch image](https://hub.docker.com/layers/pytorch/pytorch/1.9.1-cuda11.1-cudnn8-devel/images/sha256-fd8fcd6e1196d8965657b04e7dfb666046063904b767c1fd75df8039fe0ada17)
+2. Install additional dependencies from `requirements.txt`
+3.  Create non-root user (`exp`)
+4.  Set work directory (`/workspace`)
 
-## [`.github/workflows/create-git-tag.yaml`](/.github/workflows/create-git-tag.yaml)
-A template of Github Actions setting.
-Every push into the remote `main` branch is tagged according to the Japan Standard Time.
-A read/write permission is required (Please refer Settings > Actions > General > Workflow permissions).
+## [`requirements.txt`](/requirements.txt)
+`requirements.txt` is based on the [LUMP dependency](https://github.com/divyam3897/UCL/blob/main/requirements.txt).
 
 ## [`.devcontainer/devcontainer.json`](/.devcontainer/devcontainer.json)
 A template of devcontainer setting.
-This may not be necessary for publishing your environment, but it is convenient for performing the experiment.
-Please edit `image` at least.
+This may not be necessary for building the experimental environment, but it is convenient to perform the experiment.
+Please edit the value of `image` and argument `--shm-size` if you need.
